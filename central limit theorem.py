@@ -1,9 +1,15 @@
-from distribution import C, binomial, normal
+from distribution import C, normal, poisson
 import numpy as np
 import matplotlib.pyplot as plt
 import random
+'''
+This program will show you visually how the central limit theorem work, it will 
+first generate data points for the population with given population size and 
+type of population distribution. Then the program will graph out the population
+and then do an animation of how the sampling distribution is created 
+'''
 
-
+# mean and standard derivation of the population
 miu = 10
 sigma = 2
 
@@ -13,7 +19,8 @@ sampling_distribution = []
 
 generate = True
 population = []
-distribution_type = int(input('population distribution: 1-random, 2-binomial, 3-normal, 4-uniform'))
+distribution_type = int(input('population distribution: 1-random, 2-binomial, '
+                              '3-normal, 4-uniform, 5-poisson'))
 while generate:
     x = np.random.uniform(max(0, miu - 3 * sigma), miu + 3 * sigma)
     y = np.random.random()
@@ -27,14 +34,18 @@ while generate:
 
     elif distribution_type == 2:
         p = 0.2
-        population = list(np.random.binomial(population_size, p, population_size))
+        population = list(np.random.binomial(population_size+1, p, population_size))
         title = 'binomial'
-
 
     elif distribution_type == 3:
         if normal(x, sigma, miu) > y:
             population.append(x)
         title = 'normal'
+
+    elif distribution_type == 5:
+        p = poisson(np.arange(population_size+1), miu)
+        population = random.choices(np.arange(population_size+1), weights=p, k=population_size)
+        title = 'poisson'
 
     if len(population) == population_size:
         generate = False
@@ -45,6 +56,8 @@ plt.show()
 
 sigma_sample_mean = np.std(population)/np.sqrt(sample_size)
 miu = np.mean(population)
+
+# following will create a sampling distribution over 2000 trials
 for i in range(2000):
     sampling_distribution.append(np.mean(random.sample(population, sample_size)))
 
