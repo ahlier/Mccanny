@@ -21,6 +21,12 @@ generate = True
 population = []
 distribution_type = int(input('population distribution: 1-random, 2-binomial, '
                               '3-normal, 4-uniform, 5-poisson'))
+
+'''
+The following while loop will keep generating random number for population 
+based on the type of distribution you put in, and will exist the loop when the 
+size of population is large enough
+'''
 while generate:
     x = np.random.uniform(max(0, miu - 3 * sigma), miu + 3 * sigma)
     y = np.random.random()
@@ -57,7 +63,11 @@ plt.show()
 sigma_sample_mean = np.std(population)/np.sqrt(sample_size)
 miu = np.mean(population)
 
-# following will create a sampling distribution over 2000 trials
+
+'''
+following will create a sampling distribution over 2000 trials
+'''
+
 for i in range(2000):
     sampling_distribution.append(np.mean(random.sample(population, sample_size)))
 
