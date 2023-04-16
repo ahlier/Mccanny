@@ -1,6 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import random
+'''
+This program uses simulation to show how a person's balance will be as he plays
+a game with given probability and return multiplier. 
+'''
 
 p = 0.4
 step = 100
