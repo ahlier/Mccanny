@@ -1,6 +1,4 @@
 from matplotlib import pyplot as plt
-import random
-import sys
 import numpy as np
 
 x = np.arange(-1.5, 1.5, 0.001)
